@@ -17,14 +17,35 @@ const app = express();
 app.set('trust proxy', 1);
 
 // ===== CONFIGURAÇÕES =====
-const PORT              = parseInt(process.env.PORT || '3001', 10);
+const PORT              = parseInt(process.env.PORT || '3000', 10);
 const MONGO_URI         = process.env.MONGO_URI || '';
+const NODE_ENV          = process.env.NODE_ENV || 'development';
 const SESSION_DURATION  = parseInt(process.env.SESSION_HOURS || '8', 10) * 60 * 60 * 1000;
 const RATE_LIMIT_MAX    = parseInt(process.env.RATE_LIMIT_MAX || '10', 10);
 const RATE_LIMIT_WINDOW = parseInt(process.env.RATE_LIMIT_MINUTES || '15', 10) * 60 * 1000;
 const ALLOWED_ORIGINS   = (process.env.ALLOWED_ORIGINS || '*').split(',').map(o => o.trim());
 
-if (!MONGO_URI) {
+// Validações críticas para produção
+if (NODE_ENV === 'production') {
+  if (!MONGO_URI) {
+    console.error('❌ ERRO CRÍTICO: MONGO_URI não definida em produção!');
+    console.error('Configure esta variável no painel do Render antes de fazer deploy.');
+    process.exit(1);
+  }
+  if (!process.env.ADMIN_PASSWORD) {
+    console.error('❌ ERRO CRÍTICO: ADMIN_PASSWORD não definida em produção!');
+    process.exit(1);
+  }
+  if (!process.env.HASH_SALT) {
+    console.error('❌ ERRO CRÍTICO: HASH_SALT não definida em produção!');
+    process.exit(1);
+  }
+  // Em produção, não permitir CORS com *
+  if (ALLOWED_ORIGINS.includes('*')) {
+    console.warn('⚠️ AVISO: CORS com * em produção. Configure ALLOWED_ORIGINS adequadamente.');
+  }
+} else if (!MONGO_URI) {
+  // Em desenvolvimento, erro se sem MONGO_URI
   console.error('❌ MONGO_URI não definida. Configure a variável de ambiente.');
   process.exit(1);
 }
@@ -34,33 +55,46 @@ let db;
 let mongoClient; // referência para graceful shutdown
 
 async function conectarDB() {
-  mongoClient = new MongoClient(MONGO_URI, {
-    serverSelectionTimeoutMS: 10000,
-    connectTimeoutMS: 10000,
-    maxPoolSize: 10
-  });
-  await mongoClient.connect();
-  db = mongoClient.db('mistico_encanto');
-  console.log('✓ MongoDB conectado');
-
-  // Garantir índices para melhor performance
-  await db.collection('config').createIndex({ chave: 1 }, { unique: true });
-  await db.collection('produtos').createIndex({ id: 1 }, { unique: true });
-  await db.collection('produtos').createIndex({ criadoEm: -1 });
-  await db.collection('produtos').createIndex({ estilo: 1 });
-  await db.collection('produtos').createIndex({ tecido: 1 });
-  await db.collection('produtos').createIndex({ estilo: 1, tecido: 1 }); // compound para filtros combinados
-
-  // Seed do admin se não existir
-  const adminExiste = await db.collection('config').findOne({ chave: 'admin' });
-  if (!adminExiste) {
-    const senhaPadrao = process.env.ADMIN_PASSWORD || 'MisticoEncanto@2025';
-    await db.collection('config').insertOne({
-      chave: 'admin',
-      passwordHash: hashPassword(senhaPadrao)
+  try {
+    mongoClient = new MongoClient(MONGO_URI, {
+      serverSelectionTimeoutMS: 10000,
+      connectTimeoutMS: 10000,
+      maxPoolSize: 10,
+      maxIdleTimeMS: 45000,
+      retryWrites: true,
+      w: 'majority'
     });
-    console.log(`✓ Admin criado. Senha: ${senhaPadrao}`);
-    console.log('  ⚠️  Defina ADMIN_PASSWORD no painel do Render antes de publicar!');
+    await mongoClient.connect();
+    db = mongoClient.db('mistico_encanto');
+    console.log('✓ MongoDB conectado');
+
+    // Garantir índices para melhor performance
+    await db.collection('config').createIndex({ chave: 1 }, { unique: true });
+    await db.collection('produtos').createIndex({ id: 1 }, { unique: true });
+    await db.collection('produtos').createIndex({ criadoEm: -1 });
+    await db.collection('produtos').createIndex({ estilo: 1 });
+    await db.collection('produtos').createIndex({ tecido: 1 });
+    await db.collection('produtos').createIndex({ estilo: 1, tecido: 1 }); // compound para filtros combinados
+
+    // Seed do admin se não existir
+    const adminExiste = await db.collection('config').findOne({ chave: 'admin' });
+    if (!adminExiste) {
+      const senhaPadrao = process.env.ADMIN_PASSWORD || 'MisticoEncanto@2025';
+      await db.collection('config').insertOne({
+        chave: 'admin',
+        passwordHash: hashPassword(senhaPadrao)
+      });
+      console.log(`✓ Admin criado. Senha: ${senhaPadrao}`);
+      if (NODE_ENV === 'production') {
+        console.log('  ⚠️  Defina uma ADMIN_PASSWORD única e forte no painel do Render!');
+      }
+    }
+  } catch (err) {
+    console.error('❌ Erro ao conectar ao MongoDB:', err.message);
+    if (err.message.includes('getaddrinfo') || err.message.includes('connect')) {
+      console.error('   Verifique se MONGO_URI está correta e a rede permite conexões.');
+    }
+    throw err;
   }
 }
 
@@ -100,7 +134,12 @@ app.use(express.static(path.join(__dirname), {
 }));
 
 // ===== AUTENTICAÇÃO =====
-const SALT = process.env.HASH_SALT || 'mistico_encanto_salt_2025';
+// Use HASH_SALT do .env em produção, gere aleatório em desenvolvimento
+const SALT = process.env.HASH_SALT || (
+  NODE_ENV === 'production'
+    ? crypto.randomBytes(32).toString('hex')
+    : 'dev_salt_not_for_production'
+);
 
 function hashPassword(password) {
   return crypto.pbkdf2Sync(password, SALT, 100000, 64, 'sha512').toString('hex');
@@ -407,9 +446,24 @@ process.on('unhandledRejection', err => { console.error('Promise rejeitada:', er
 // ===== INICIAR =====
 conectarDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`\n✦ Místico Encanto → http://localhost:${PORT}\n`);
+    console.log(`\n✦ Místico Encanto está rodando`);
+    console.log(`  🌐 http://localhost:${PORT}`);
+    console.log(`  📊 Painel admin em /admin.html`);
+    console.log(`  🔗 API em http://localhost:${PORT}/api/produtos\n`);
+    
+    // Mensagens de configuração em produção
+    if (NODE_ENV === 'production') {
+      console.log('⚙️  Ambiente: PRODUÇÃO');
+      console.log(`   CORS: ${ALLOWED_ORIGINS.join(', ')}`);
+    }
   });
 }).catch(err => {
-  console.error('Erro ao conectar ao MongoDB:', err.message);
+  console.error('\n❌ FALHA AO INICIAR SERVIDOR\n');
+  console.error('Erro:', err.message);
+  console.error('\nVerifique:');
+  console.error('  • MONGO_URI está configurada e válida');
+  console.error('  • Cluster MongoDB Atlas está ativo');
+  console.error('  • Firewall permite conexão do IP do Render');
+  console.error('  • Node.js versão >= 18.0.0\n');
   process.exit(1);
 });
