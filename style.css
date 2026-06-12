@@ -1409,6 +1409,11 @@ main {
   animation: fadeIn 0.8s ease-out 1.4s both;
 }
 
+/* Quando vazio, esconde completamente */
+.container:empty {
+  display: none !important;
+}
+
 @media (min-width: 1200px) {
   .container {
     grid-template-columns: repeat(10, 1fr);
@@ -1659,15 +1664,21 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  z-index: 1;
+  z-index: 10;
   position: relative;
+  width: 100%;
 }
 
 /* Quando hidden, desaparece completamente */
 .sem-resultado[hidden] {
   display: none !important;
-  visibility: hidden;
-  pointer-events: none;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  height: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 .sem-resultado i { 
   font-size: 64px; /* Ícone maior */

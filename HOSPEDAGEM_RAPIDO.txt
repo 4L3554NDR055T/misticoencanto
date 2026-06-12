@@ -1,0 +1,331 @@
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                 🌐 COMO HOSPEDAR SEU SITE - VIA RENDER 🌐               ┃
+┃                        (Grátis, Rápido, Fácil)                          ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+⏱️  TEMPO TOTAL: 40 MINUTOS
+💰 CUSTO: GRÁTIS
+📊 DIFICULDADE: FÁCIL (clique em botões)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 1: CRIAR CONTA GITHUB (5 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Vá para: https://github.com
+2. Clique "Sign up"
+3. Preencha email, senha, username
+4. Confirme email
+✅ PRONTO! Você tem conta GitHub
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 2: CRIAR REPOSITÓRIO NO GITHUB (3 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. GitHub > Dashboard > Clique "+"
+2. Selecione "New repository"
+3. Preencha:
+   - Name: mistico-encanto
+   - Description: Loja de Camisolas (opcional)
+   - Public: SIM
+   - Add .gitignore: Node
+4. Clique "Create repository"
+
+✅ PRONTO! Repositório criado
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 3: ENVIAR ARQUIVOS PARA GITHUB (5 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+OPÇÃO A: GitHub Desktop (MAIS FÁCIL)
+
+1. Download: https://desktop.github.com
+2. Instale
+3. Abra GitHub Desktop
+4. File > Clone Repository
+5. Selecione seu repositório
+6. Escolha pasta local
+7. COPIE todos os arquivos do siteSther para a pasta
+8. Volte ao GitHub Desktop
+9. Verá todos os arquivos aparecerem
+10. Clique "Commit to main"
+11. Escreva mensagem: "Deploy inicial siteSther"
+12. Clique "Publish branch"
+
+✅ PRONTO! Arquivos no GitHub
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 4: CRIAR BANCO DE DADOS MONGODB (10 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Vá para: https://www.mongodb.com/cloud/atlas
+2. Clique "Sign Up"
+3. Preencha email e senha
+4. Confirme email
+5. Faça login
+6. Clique "Create" (em Clusters)
+7. Selecione "M0 Sandbox" (grátis)
+8. Preencha:
+   - Cluster name: mistico-encanto
+   - Provider: AWS
+   - Region: São Paulo (sa-east-1)
+9. Clique "Create Cluster"
+10. AGUARDE 2-5 MINUTOS ⏳
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 4B: CRIAR USUÁRIO NO MONGODB (3 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. No Atlas, vá para "Database Access" (lateral)
+2. Clique "Add New Database User"
+3. Username: admin
+4. Password: SenhaForte123!
+5. Role: Atlas admin
+6. Clique "Add User"
+
+✅ PRONTO! Usuário criado
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 4C: LIBERAR ACESSO DE IP (2 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. No Atlas, vá para "Network Access" (lateral)
+2. Clique "Add IP Address"
+3. Selecione "Allow access from anywhere"
+4. Clique "Confirm"
+
+✅ PRONTO! IP liberado
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 4D: OBTER CONNECTION STRING (2 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. No seu Cluster, clique "Connect"
+2. Selecione "Drivers"
+3. Language: Node.js
+4. Copie a string que aparece
+5. Substitua:
+   - <username> por: admin
+   - <password> por: SenhaForte123!
+
+EXEMPLO FINAL:
+mongodb+srv://admin:SenhaForte123!@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+
+✅ GUARDE ESSE TEXTO! 📝 Você vai precisar
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 5: CRIAR CONTA RENDER (3 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Vá para: https://render.com
+2. Clique "Sign Up"
+3. Selecione "GitHub" (fácil!)
+4. Autorize sua conta GitHub
+5. Confirme email
+
+✅ PRONTO! Conta Render criada
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 6: FAZER DEPLOY NO RENDER (10 min)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Render Dashboard > Clique "+ New"
+2. Selecione "Web Service"
+3. Selecione seu repositório: mistico-encanto
+4. Preencha:
+   - Name: mistico-encanto
+   - Environment: Node
+   - Region: São Paulo (South America)
+   - Branch: main
+   - Build Command: npm install
+   - Start Command: npm start
+
+5. Scroll down até "Environment"
+6. Clique "Add Environment Variable"
+7. ADICIONE ESSAS VARIÁVEIS (clique + para cada uma):
+
+   CHAVE                 VALOR
+   ────────────────────────────────────────────────────
+   PORT                  3001
+   MONGO_URI             mongodb+srv://admin:SenhaForte123!@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+   ADMIN_PASSWORD        SenhaForte123Forte!
+   HASH_SALT             8f4e2c9a7b1d5e3a6f2c8e1b4a9d7c2f
+   ALLOWED_ORIGINS       *
+   SESSION_HOURS         8
+   RATE_LIMIT_MAX        10
+   RATE_LIMIT_MINUTES    15
+
+8. Clique "Create Web Service"
+9. AGUARDE 3-5 MINUTOS ⏳
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 7: CONFIGURAR WHATSAPP (5 min - IMPORTANTE!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. No GitHub, vá para seu repositório
+2. Clique no arquivo "config.js"
+3. Clique o lápis (edit)
+4. Procure a linha:
+   WHATSAPP: 'SEU_NUMERO_AQUI',
+
+5. Substitua por (seu número com código do país):
+   WHATSAPP: '5511999998888',
+
+6. Clique "Commit changes"
+7. Escreva mensagem: "Configurar WhatsApp"
+8. Clique "Commit to main"
+9. Volte ao Render
+10. Seu app > Clique "Manual Deploy" > "Deploy latest commit"
+11. AGUARDE 2 MINUTOS
+
+✅ PRONTO! Site atualizado com WhatsApp
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PASSO 8: ACESSAR SEU SITE! 🎉
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. No Render, vá para seu app
+2. Procure no topo: "Environment" > clique "Open"
+3. Você verá um link como:
+   https://mistico-encanto.onrender.com
+
+4. Clique nele! 🌐
+
+✅ SEU SITE ESTÁ ONLINE!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TESTE TUDO:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+No seu site, teste:
+☐ Página carrega (hero, produtos, etc)
+☐ Carrinho funciona (adicionar ao carrinho)
+☐ Busca funciona
+☐ Filtros funcionam
+☐ WhatsApp funciona (botão verde)
+☐ Painel Admin (rodapé > "Painel Admin")
+☐ Login: digite senha
+☐ Adicionar produto (teste no painel)
+
+✅ TUDO FUNCIONANDO? PARABÉNS! 🎉
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MANTÉM SITE ATIVO (IMPORTANTE!) - 3 min
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Render coloca site em sleep depois de 15 min sem usar.
+Para evitar:
+
+1. Vá para: https://uptimerobot.com
+2. Clique "Sign Up"
+3. Confirme email
+4. Clique "+ Add Monitor"
+5. Preencha:
+   - URL: https://seu-dominio.onrender.com/health
+   - Name: Místico Encanto
+   - Check interval: 5 minutes
+6. Clique "Create Monitor"
+
+✅ PRONTO! Site vai ficar sempre ativo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+DOMÍNIO CUSTOMIZADO (OPCIONAL) - +$5/mês
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Quer misticoencanto.com ao invés de .onrender.com?
+
+1. Compre domínio em: GoDaddy, NameCheap, Registro.br
+2. No Render > Seu app > Settings
+3. Procure "Custom Domains"
+4. Adicione seu domínio
+5. Render vai dar as instruções de DNS
+6. Volte ao seu registrador e configure
+
+(Leva 24-48h para funcionar)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CHECKLIST FINAL:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ GitHub repositório criado
+✅ Arquivos enviados para GitHub
+✅ MongoDB cluster criado
+✅ Usuário MongoDB criado
+✅ IP whitelistado
+✅ Connection string obtida
+✅ Render account criada
+✅ Web Service deployado
+✅ Variáveis de ambiente configuradas
+✅ WhatsApp configurado
+✅ Site online (URL do Render)
+✅ Testes passando
+✅ UptimeRobot configurado
+
+🎉 PARABÉNS! SEU SITE ESTÁ ONLINE! 🎉
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PROBLEMAS? 🆘
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"Erro de conexão MongoDB"
+→ Verificar MONGO_URI na Render (Environment)
+→ Verificar senha do MongoDB (admin)
+→ Verificar se IP está whitelistado
+
+"WhatsApp não funciona"
+→ Número tem que ser: 5511999998888 (sem símbolos)
+→ Fazer hard refresh: Ctrl+Shift+Del
+
+"Site muito lento"
+→ Normal no Render gratuito (primeiro acesso)
+→ UptimeRobot resolve mantendo ativo
+
+"Painel admin não funciona"
+→ Senha: aquela que colocou em ADMIN_PASSWORD
+→ Verificar console (F12) para erros
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+RESUMO RÁPIDO - TIMING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Passo 1: GitHub account        5 min
+Passo 2: GitHub repository     3 min
+Passo 3: Upload arquivos       5 min
+Passo 4: MongoDB              10 min
+Passo 5: Render account        3 min
+Passo 6: Deploy Render        10 min
+Passo 7: WhatsApp config       5 min
+
+────────────────────────────────────────
+TOTAL                         41 min ✅
+
+HORA DO LANÇAMENTO! 🚀
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Links úteis:
+→ GitHub: https://github.com
+→ MongoDB: https://mongodb.com/cloud/atlas
+→ Render: https://render.com
+→ UptimeRobot: https://uptimerobot.com
+
+Gerado: 11/06/2026
+Versão: siteSther 1.1.0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

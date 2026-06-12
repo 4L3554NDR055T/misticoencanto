@@ -350,15 +350,19 @@ function renderizar() {
     : '';
 
   if (!lista.length) {
+    // Sem produtos - mostra mensagem
     semRes.removeAttribute('hidden');
-    semRes.style.display = 'flex';
-    grid.style.display = 'none';
+    semRes.style.cssText = 'display: flex !important; visibility: visible !important; pointer-events: auto !important;';
+    grid.innerHTML = '';
+    grid.style.cssText = 'display: none !important;';
     paginacao.innerHTML = '';
     return;
   }
+  
+  // Com produtos - esconde mensagem
   semRes.setAttribute('hidden', '');
-  semRes.style.display = 'none';
-  grid.style.display = 'grid';
+  semRes.style.cssText = 'display: none !important; visibility: hidden !important; pointer-events: none !important;';
+  grid.style.cssText = 'display: grid !important;';
 
   // Proteção contra pagina inválida
   const totalPag = Math.ceil(lista.length / POR_PAGINA);
