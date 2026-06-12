@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Místico Encanto - Camisolas &amp; Babydolls</title>
+  <meta name="description" content="Loja online de camisolas e babydolls de luxo em renda, cetim e chiffon. Coleção exclusiva para momentos íntimos especiais.">
+  <meta name="keywords" content="camisola, babydoll, lingerie, renda, cetim, chiffon, luxo, moda íntima">
+  <meta name="author" content="Místico Encanto">
+  <meta property="og:title" content="Místico Encanto - Camisolas &amp; Babydolls">
+  <meta property="og:description" content="Coleção exclusiva de camisolas e babydolls de luxo">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://misticoencanto.com">
+  <meta name="robots" content="index, follow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="style.css">
+  <link rel="preload" as="style" href="search-improvements.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="search-improvements.css">
+</head>
+<body>
+
+  <!-- LOADING -->
+  <div class="loading" id="loading" aria-hidden="true">
+    <div class="loading-logo">✦ Místico Encanto</div>
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- TOAST — região de alerta para leitores de tela -->
+  <div id="toast" class="toast" role="alert" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- PARTÍCULAS (decorativo) -->
+  <div class="particles-container" aria-hidden="true"></div>
+
+  <!-- SKIP LINK -->
+  <a href="#main-content" class="skip-to-content">Pular para conteúdo principal</a>
+
+  <!-- HEADER -->
+  <header role="banner">
+    <div class="header-logo" role="img" aria-label="Místico Encanto - Início">
+      <span class="logo-icon" aria-hidden="true">✦</span>
+      <h1>Místico <span>Encanto</span></h1>
+    </div>
+
+    <div class="header-busca-wrap" role="search">
+      <label for="busca" class="sr-only">Buscar produtos</label>
+      <i class="fas fa-search header-busca-icon" aria-hidden="true"></i>
+      <input
+        type="search"
+        id="busca"
+        class="header-busca"
+        placeholder="Buscar..."
+        autocomplete="off"
+        aria-label="Buscar produtos"
+        aria-controls="produtos"
+      >
+      <button class="header-busca-clear" id="buscaClear" aria-label="Limpar busca" hidden>✕</button>
+    </div>
+
+    <div class="header-acoes">
+      <button class="btn-header" id="btnFiltros" aria-label="Abrir filtros" aria-expanded="false" aria-controls="filtrosPanel">
+        <i class="fas fa-sliders-h" aria-hidden="true"></i>
+        <span>Filtros</span>
+        <span class="filtros-badge" id="filtrosBadge" aria-label="filtros ativos" hidden>0</span>
+      </button>
+      <button class="btn-header btn-carrinho-header" id="btnCarrinho" aria-label="Abrir carrinho" aria-expanded="false" aria-controls="cartBox">
+        <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+        <span>Carrinho</span>
+        <span class="badge" id="count" aria-label="itens no carrinho">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- OVERLAY FILTROS -->
+  <div class="overlay" id="filtrosOverlay" aria-hidden="true"></div>
+
+  <!-- PAINEL FILTROS -->
+  <aside class="filtros" id="filtrosPanel" aria-label="Filtros de produto" aria-hidden="true">
+    <div class="filtros-topo">
+      <span class="filtros-titulo"><i class="fas fa-filter" aria-hidden="true"></i> Filtros</span>
+      <button class="btn-fechar" id="btnFecharFiltros" aria-label="Fechar filtros">✖</button>
+    </div>
+
+    <div class="filtro-grupo">
+      <label for="filtroOrdem"><i class="fas fa-sort-amount-down" aria-hidden="true"></i> Ordenar por</label>
+      <select id="filtroOrdem" name="ordenar">
+        <option value="">Padrão</option>
+        <option value="menor">Menor preço</option>
+        <option value="maior">Maior preço</option>
+        <option value="az">A → Z</option>
+      </select>
+    </div>
+
+    <div class="filtro-grupo">
+      <label for="filtroCor"><i class="fas fa-palette" aria-hidden="true"></i> Cor</label>
+      <select id="filtroCor" name="cor">
+        <option value="">Todas</option>
+        <option value="preto">Preto</option>
+        <option value="rosa">Rosa</option>
+        <option value="vermelho">Vermelho</option>
+        <option value="branco">Branco</option>
+      </select>
+    </div>
+
+    <div class="filtro-grupo">
+      <label for="filtroPreco"><i class="fas fa-money-bill-wave" aria-hidden="true"></i> Preço</label>
+      <select id="filtroPreco" name="preco">
+        <option value="">Todos</option>
+        <option value="baixo">Até R$ 80</option>
+        <option value="medio">R$ 80 – R$ 110</option>
+        <option value="alto">Acima de R$ 110</option>
+      </select>
+    </div>
+
+    <div class="filtro-grupo">
+      <label for="filtroTamanho"><i class="fas fa-ruler" aria-hidden="true"></i> Tamanho</label>
+      <select id="filtroTamanho" name="tamanho">
+        <option value="">Todos</option>
+        <option value="P">P</option>
+        <option value="M">M</option>
+        <option value="G">G</option>
+        <option value="GG">GG</option>
+      </select>
+    </div>
+
+    <div class="filtro-grupo">
+      <label for="filtroTecido"><i class="fas fa-tshirt" aria-hidden="true"></i> Tecido</label>
+      <select id="filtroTecido" name="tecido">
+        <option value="">Todos</option>
+        <option value="renda">Renda</option>
+        <option value="cetim">Cetim</option>
+        <option value="chiffon">Chiffon</option>
+        <option value="malha">Malha</option>
+      </select>
+    </div>
+
+    <div class="filtro-grupo">
+      <label for="filtroEstilo"><i class="fas fa-star" aria-hidden="true"></i> Estilo</label>
+      <select id="filtroEstilo" name="estilo">
+        <option value="">Todos</option>
+        <option value="babydoll">Babydoll</option>
+        <option value="camisola">Camisola</option>
+      </select>
+    </div>
+
+    <button class="btn-limpar" id="btnLimparFiltros">
+      <i class="fas fa-times" aria-hidden="true"></i> Limpar filtros
+    </button>
+  </aside>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Apresentação da loja">
+    <div class="hero-texto">
+      <p class="hero-sub">Coleção Exclusiva</p>
+      <h2 class="hero-titulo">Encanto que <br>transforma noites</h2>
+      <p class="hero-desc">Camisolas e babydolls em renda, cetim e chiffon para momentos íntimos especiais</p>
+      <div class="hero-stats" aria-label="Números da loja">
+        <div class="stat">
+          <span class="stat-number" aria-label="Mais de 500 clientes encantadas">+500</span>
+          <span class="stat-label">Clientes Encantadas</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" aria-label="100% conforto garantido">100%</span>
+          <span class="stat-label">Conforto Garantido</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number" aria-label="Entrega em 24 horas">24h</span>
+          <span class="stat-label">Entrega Discreta</span>
+        </div>
+      </div>
+    </div>
+    <nav class="hero-tags" aria-label="Filtros rápidos">
+      <button class="hero-tag-btn" data-filtro="estilo" data-valor="babydoll">
+        <i class="fas fa-magic" aria-hidden="true"></i> Babydoll
+      </button>
+      <button class="hero-tag-btn" data-filtro="estilo" data-valor="camisola">
+        <i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Camisola
+      </button>
+      <button class="hero-tag-btn" data-filtro="tecido" data-valor="renda">
+        <i class="fas fa-heart" aria-hidden="true"></i> Renda
+      </button>
+      <button class="hero-tag-btn" data-filtro="tecido" data-valor="cetim">
+        <i class="fas fa-gem" aria-hidden="true"></i> Cetim
+      </button>
+    </nav>
+  </section>
+
+  <!-- MAIN -->
+  <main id="main-content">
+    <div class="secao-titulo">
+      <span>Coleção</span>
+      <span id="contagem-produtos" class="contagem" aria-live="polite" aria-atomic="true"></span>
+    </div>
+    <div id="sem-resultado" class="sem-resultado" hidden>
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <p>Nenhum produto encontrado.</p>
+      <button class="btn-limpar" id="btnLimparFiltrosInline" style="margin-top:16px; margin-left:0;">Limpar filtros</button>
+    </div>
+    <div class="container" id="produtos" role="list" aria-label="Lista de produtos"></div>
+    <nav id="paginacao" class="paginacao" aria-label="Paginação de produtos"></nav>
+  </main>
+
+  <!-- CARRINHO LATERAL -->
+  <div class="overlay" id="cartOverlay" aria-hidden="true"></div>
+  <aside class="cart" id="cartBox" aria-label="Carrinho de compras" aria-hidden="true">
+    <div class="cart-header">
+      <h2><i class="fas fa-shopping-bag" aria-hidden="true"></i> Carrinho</h2>
+      <button class="btn-fechar" id="btnFecharCart" aria-label="Fechar carrinho">✖</button>
+    </div>
+    <div id="carrinho" aria-live="polite"></div>
+    <div class="cart-footer">
+      <div class="total-row">
+        <span>Total</span>
+        <strong>R$ <span id="total">0,00</span></strong>
+      </div>
+      <button class="btn-whatsapp" id="btnFinalizar">
+        <i class="fab fa-whatsapp" aria-hidden="true"></i> Finalizar no WhatsApp
+      </button>
+      <button class="btn-limpar-cart" id="btnLimparCarrinho">
+        <i class="fas fa-trash" aria-hidden="true"></i> Limpar carrinho
+      </button>
+    </div>
+  </aside>
+
+  <!-- MODAL DETALHES DO PRODUTO -->
+  <div class="modal-overlay" id="modalOverlay" aria-hidden="true"></div>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-nome" aria-hidden="true">
+    <button class="modal-fechar" id="btnFecharModal" aria-label="Fechar detalhes do produto">✖</button>
+    <div class="modal-layout">
+      <div class="modal-img-wrap">
+        <img id="modal-img" src="" alt="">
+      </div>
+      <div class="modal-info">
+        <p class="modal-estilo" id="modal-estilo"></p>
+        <h2 id="modal-nome"></h2>
+        <p class="modal-preco" id="modal-preco"></p>
+        <div class="modal-tags" id="modal-tags"></div>
+        <button class="btn-add-modal" id="modal-btn">
+          <i class="fas fa-shopping-bag" aria-hidden="true"></i> Adicionar ao carrinho
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RODAPÉ -->
+  <footer class="rodape" role="contentinfo">
+    <div class="rodape-inner">
+      <div class="rodape-marca">
+        <div class="rodape-logo">✦ Místico Encanto</div>
+        <p class="rodape-slogan">Camisolas &amp; Babydolls de Luxo</p>
+        <nav class="redes" aria-label="Redes sociais">
+          <a id="linkWhatsapp" href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            <span class="rede-tooltip">WhatsApp</span>
+          </a>
+          <a href="https://instagram.com/misticoencanto" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+            <span class="rede-tooltip">Instagram</span>
+          </a>
+          <a href="https://facebook.com/misticoencanto" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <i class="fab fa-facebook" aria-hidden="true"></i>
+            <span class="rede-tooltip">Facebook</span>
+          </a>
+          <a href="https://pinterest.com/misticoencanto" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+            <i class="fab fa-pinterest" aria-hidden="true"></i>
+            <span class="rede-tooltip">Pinterest</span>
+          </a>
+        </nav>
+      </div>
+      <div class="rodape-links">
+        <p class="rodape-links-titulo">Informações</p>
+        <a href="#entrega"><i class="fas fa-truck" aria-hidden="true"></i> Entrega Discreta</a>
+        <a href="#privacidade"><i class="fas fa-shield-alt" aria-hidden="true"></i> Política de Privacidade</a>
+        <a href="#termos"><i class="fas fa-file-contract" aria-hidden="true"></i> Termos de Uso</a>
+        <button class="link-btn" id="btnAbrirAdmin"><i class="fas fa-cogs" aria-hidden="true"></i> Painel Admin</button>
+      </div>
+    </div>
+    <div class="rodape-pagamentos">
+      <span>Formas de pagamento:</span>
+      <div class="pagamentos-icons" aria-label="Bandeiras aceitas">
+        <i class="fab fa-cc-visa" title="Visa" aria-label="Visa"></i>
+        <i class="fab fa-cc-mastercard" title="Mastercard" aria-label="Mastercard"></i>
+        <i class="fab fa-cc-paypal" title="PayPal" aria-label="PayPal"></i>
+        <span class="pix-badge" title="PIX" aria-label="PIX">PIX</span>
+      </div>
+    </div>
+    <p class="direitos">© 2026 WST Desenvolvimentos – Todos os direitos reservados</p>
+  </footer>
+
+  <!-- MODAL LOGIN ADMIN -->
+  <div class="modal-overlay" id="adminLoginOverlay" aria-hidden="true"></div>
+  <div class="modal-admin" id="adminLoginModal" role="dialog" aria-modal="true" aria-labelledby="adminLoginTitulo" aria-hidden="true">
+    <button class="modal-fechar" id="btnFecharLoginAdmin" aria-label="Fechar login">✖</button>
+    <div class="admin-login-content">
+      <div class="admin-login-header">
+        <i class="fas fa-lock" aria-hidden="true"></i>
+        <h2 id="adminLoginTitulo">Acesso Administrativo</h2>
+        <p>Painel de Gerenciamento de Produtos</p>
+      </div>
+      <div class="admin-login-form">
+        <div class="input-group">
+          <label for="adminSenha"><i class="fas fa-key" aria-hidden="true"></i> Senha de Acesso</label>
+          <input type="password" id="adminSenha" placeholder="Digite a senha" class="admin-input" autocomplete="current-password">
+          <button class="btn-admin-login" id="btnLoginAdmin">
+            <i class="fas fa-sign-in-alt" aria-hidden="true"></i> Acessar Painel
+          </button>
+        </div>
+        <p class="admin-login-hint">Entre em contato com o administrador para obter a senha</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL ADMINISTRATIVO -->
+  <div class="modal-overlay" id="adminPanelOverlay" aria-hidden="true"></div>
+  <div class="admin-panel" id="adminPanel" role="dialog" aria-modal="true" aria-labelledby="adminPanelTitulo" aria-hidden="true">
+    <div class="admin-panel-header">
+      <div class="admin-panel-title">
+        <i class="fas fa-cogs" aria-hidden="true"></i>
+        <div>
+          <h2 id="adminPanelTitulo">Painel Administrativo</h2>
+          <p>Gerenciamento de Produtos</p>
+        </div>
+      </div>
+      <button class="btn-fechar" id="btnFecharAdmin" aria-label="Fechar painel administrativo">✖</button>
+    </div>
+
+    <div class="admin-panel-content">
+      <!-- ESTATÍSTICAS -->
+      <div class="admin-stats" role="region" aria-label="Estatísticas">
+        <div class="admin-stat">
+          <span class="admin-stat-number" id="totalProdutos">0</span>
+          <span class="admin-stat-label">Produtos</span>
+        </div>
+        <div class="admin-stat">
+          <span class="admin-stat-number" id="totalEstoque">0</span>
+          <span class="admin-stat-label">Em Estoque</span>
+        </div>
+        <div class="admin-stat">
+          <span class="admin-stat-number" id="valorTotal">R$ 0,00</span>
+          <span class="admin-stat-label">Valor Total</span>
+        </div>
+      </div>
+
+      <!-- CONTROLES -->
+      <div class="admin-controls" role="toolbar" aria-label="Ações administrativas">
+        <button class="btn-admin-add" id="btnAdicionarProduto">
+          <i class="fas fa-plus" aria-hidden="true"></i> Adicionar Produto
+        </button>
+        <button class="btn-admin-clear" id="btnLimparTodos">
+          <i class="fas fa-trash-alt" aria-hidden="true"></i> Limpar Todos
+        </button>
+        <button class="btn-admin-example" id="btnProdutosExemplo">
+          <i class="fas fa-magic" aria-hidden="true"></i> Produtos Exemplo
+        </button>
+        <button class="btn-admin-export" id="btnExportar">
+          <i class="fas fa-file-export" aria-hidden="true"></i> Exportar
+        </button>
+        <button class="btn-admin-import" id="btnImportar">
+          <i class="fas fa-file-import" aria-hidden="true"></i> Importar
+        </button>
+        <button class="btn-admin-notifications" id="btnNotificacoes" aria-label="Ver notificações">
+          <i class="fas fa-bell" aria-hidden="true"></i> Notificações
+          <span class="notification-badge" id="notificationBadge" aria-label="notificações não lidas" hidden></span>
+        </button>
+      </div>
+
+      <!-- LISTA DE PRODUTOS -->
+      <div class="admin-products-container">
+        <div class="admin-products-header">
+          <h3><i class="fas fa-boxes" aria-hidden="true"></i> Lista de Produtos</h3>
+          <div class="admin-search" role="search">
+            <label for="adminBusca" class="sr-only">Buscar produto no painel</label>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <input type="search" id="adminBusca" placeholder="Buscar produto...">
+          </div>
+        </div>
+        <div class="admin-products-list" id="adminProductsList" role="list" aria-label="Produtos cadastrados">
+          <!-- Produtos carregados via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ADICIONAR/EDITAR PRODUTO -->
+  <div class="modal-overlay" id="produtoModalOverlay" aria-hidden="true"></div>
+  <div class="modal-produto" id="produtoModal" role="dialog" aria-modal="true" aria-labelledby="produtoModalTitulo" aria-hidden="true">
+    <button class="modal-fechar" id="btnFecharModalProduto" aria-label="Fechar formulário de produto">✖</button>
+    <div class="modal-produto-content">
+      <h2 id="produtoModalTitulo"><i class="fas fa-plus" aria-hidden="true"></i> Adicionar Produto</h2>
+
+      <form id="produtoForm" novalidate>
+        <input type="hidden" id="produtoId">
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="produtoNome"><i class="fas fa-tag" aria-hidden="true"></i> Nome do Produto</label>
+            <input type="text" id="produtoNome" required minlength="3" maxlength="200" placeholder="Ex: Babydoll Renda Vermelha Sensual" autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label for="produtoPreco"><i class="fas fa-money-bill-wave" aria-hidden="true"></i> Preço (R$)</label>
+            <input type="number" id="produtoPreco" step="0.01" min="0.01" max="10000" required placeholder="89.90">
+          </div>
+
+          <div class="form-group">
+            <label for="produtoCores"><i class="fas fa-palette" aria-hidden="true"></i> Cores (separadas por vírgula)</label>
+            <input type="text" id="produtoCores" placeholder="Ex: preto, rosa, vermelho, branco" required autocomplete="off">
+            <small class="form-help">Digite as cores separadas por vírgula</small>
+          </div>
+
+          <div class="form-group">
+            <label for="produtoTamanhos"><i class="fas fa-ruler" aria-hidden="true"></i> Tamanhos (separados por vírgula)</label>
+            <input type="text" id="produtoTamanhos" placeholder="Ex: P, M, G, GG" required autocomplete="off">
+            <small class="form-help">Digite os tamanhos separados por vírgula</small>
+          </div>
+
+          <div class="form-group">
+            <label for="produtoTecido"><i class="fas fa-tshirt" aria-hidden="true"></i> Tecido</label>
+            <select id="produtoTecido" name="tecido" required>
+              <option value="">Selecione...</option>
+              <option value="renda">Renda</option>
+              <option value="cetim">Cetim</option>
+              <option value="chiffon">Chiffon</option>
+              <option value="malha">Malha</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="produtoEstilo"><i class="fas fa-star" aria-hidden="true"></i> Estilo</label>
+            <select id="produtoEstilo" name="estilo" required>
+              <option value="">Selecione...</option>
+              <option value="babydoll">Babydoll</option>
+              <option value="camisola">Camisola</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="produtoEstoque"><i class="fas fa-box" aria-hidden="true"></i> Estoque</label>
+            <input type="number" id="produtoEstoque" min="0" max="10000" required placeholder="10" value="10">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="produtoImagem"><i class="fas fa-image" aria-hidden="true"></i> URL da Imagem</label>
+            <input type="url" id="produtoImagem" required placeholder="https://images.unsplash.com/photo-..." autocomplete="off">
+            <!-- Preview da imagem -->
+            <div class="image-preview-wrap" id="imagePreviewWrap" hidden>
+              <img id="imagePreview" src="" alt="Pré-visualização" class="image-preview">
+            </div>
+            <div class="image-sources">
+              <small class="form-help">Fontes recomendadas:</small>
+              <div class="source-links">
+                <a href="https://unsplash.com/s/photos/lingerie" target="_blank" rel="noopener noreferrer" class="source-link">
+                  <i class="fas fa-external-link-alt" aria-hidden="true"></i> Unsplash
+                </a>
+                <a href="https://pixabay.com/images/search/lingerie/" target="_blank" rel="noopener noreferrer" class="source-link">
+                  <i class="fas fa-external-link-alt" aria-hidden="true"></i> Pixabay
+                </a>
+                <a href="https://www.pexels.com/search/lingerie/" target="_blank" rel="noopener noreferrer" class="source-link">
+                  <i class="fas fa-external-link-alt" aria-hidden="true"></i> Pexels
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-cancelar" id="btnCancelarProduto">
+            <i class="fas fa-times" aria-hidden="true"></i> Cancelar
+          </button>
+          <button type="submit" class="btn-salvar">
+            <i class="fas fa-save" aria-hidden="true"></i> Salvar Produto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL HISTÓRICO DE NOTIFICAÇÕES -->
+  <div class="modal-overlay" id="notificationsModalOverlay" aria-hidden="true"></div>
+  <div class="modal-notifications" id="notificationsModal" role="dialog" aria-modal="true" aria-labelledby="notifTitulo" aria-hidden="true">
+    <button class="modal-fechar" id="btnFecharNotificacoes" aria-label="Fechar notificações">✖</button>
+    <div class="modal-notifications-content">
+      <h2 id="notifTitulo"><i class="fas fa-history" aria-hidden="true"></i> Histórico de Notificações</h2>
+      <div class="notifications-header">
+        <div class="notifications-stats">
+          <span id="notificationsCount">0 notificações</span>
+          <span id="notificationsUnread">0 não lidas</span>
+        </div>
+        <div class="notifications-actions">
+          <button class="btn-notifications-clear" id="btnLimparNotificacoes">
+            <i class="fas fa-trash" aria-hidden="true"></i> Limpar
+          </button>
+          <button class="btn-notifications-mark-read" id="btnMarcarLidas">
+            <i class="fas fa-check" aria-hidden="true"></i> Marcar lidas
+          </button>
+        </div>
+      </div>
+      <div class="notifications-list" id="notificationsList" role="list" aria-label="Histórico de notificações">
+        <div class="notification-empty">
+          <i class="fas fa-bell-slash" aria-hidden="true"></i>
+          <p>Nenhuma notificação ainda</p>
+          <small>As notificações do painel admin aparecerão aqui</small>
+        </div>
+      </div>
+      <div class="notifications-footer">
+        <button class="btn-notifications-close" id="btnFecharNotificacoesFooter">
+          <i class="fas fa-times" aria-hidden="true"></i> Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <script src="admin.js"></script>
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Místico Encanto",
+    "url": "https://misticoencanto.com",
+    "description": "Loja online de camisolas e babydolls de luxo em renda, cetim e chiffon.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://misticoencanto.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Místico Encanto",
+    "url": "https://misticoencanto.com",
+    "sameAs": [
+      "https://instagram.com/misticoencanto",
+      "https://facebook.com/misticoencanto",
+      "https://pinterest.com/misticoencanto"
+    ]
+  }
+  </script>
+</body>
+</html>

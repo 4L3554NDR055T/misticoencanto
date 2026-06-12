@@ -1,0 +1,142 @@
+# Configurações de segurança e performance para Místico Encanto
+# Apache .htaccess
+
+# ===== SEGURANÇA =====
+
+# Forçar HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Proteger contra clickjacking
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"
+
+# Proteger contra XSS
+Header always set X-XSS-Protection "1; mode=block"
+
+# Referrer Policy
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Permissions Policy
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+# Content Security Policy (CSP)
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com/ajax/libs https://fonts.googleapis.com 'unsafe-inline'; style-src 'self' https://cdnjs.cloudflare.com/ajax/libs https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self'; frame-ancestors 'self';"
+
+# HSTS (HTTP Strict Transport Security)
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+# ===== PERFORMANCE =====
+
+# Compressão GZIP
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+    AddOutputFilterByType DEFLATE application/xml application/xhtml+xml application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+
+# Cache de navegador
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Imagens
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS e JavaScript
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    
+    # Fontes
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    
+    # HTML
+    ExpiresByType text/html "access plus 1 hour"
+    
+    # Outros
+    ExpiresByType application/pdf "access plus 1 month"
+    ExpiresByType application/x-shockwave-flash "access plus 1 month"
+</IfModule>
+
+# ===== PROTEÇÃO DE ARQUIVOS =====
+
+# Bloquear acesso a arquivos sensíveis
+<FilesMatch "\.(env|log|ini|conf|sql|bak|backup|swp)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Proteger arquivos .htaccess e .htpasswd
+<Files ~ "^\.ht">
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</Files>
+
+# Bloquear acesso a diretórios
+Options -Indexes
+
+# ===== REDIRECIONAMENTOS =====
+
+# Redirecionar www para non-www (ou vice-versa conforme preferência)
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+# RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Redirecionar URLs com trailing slash para sem trailing slash
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+# ===== ERROS PERSONALIZADOS =====
+
+ErrorDocument 400 /error.html
+ErrorDocument 401 /error.html
+ErrorDocument 403 /error.html
+ErrorDocument 404 /error.html
+ErrorDocument 500 /error.html
+
+# ===== BLOQUEIO DE USER AGENTS MALICIOSOS =====
+
+# Bloquear scanners e bots maliciosos
+SetEnvIfNoCase User-Agent "libwww-perl" bad_bot
+SetEnvIfNoCase User-Agent "wget" bad_bot
+SetEnvIfNoCase User-Agent "curl" bad_bot
+SetEnvIfNoCase User-Agent "scan" bad_bot
+SetEnvIfNoCase User-Agent "nikto" bad_bot
+SetEnvIfNoCase User-Agent "sqlmap" bad_bot
+SetEnvIfNoCase User-Agent "nmap" bad_bot
+
+Order Deny,Allow
+Deny from env=bad_bot
+
+# ===== HEADERS ADICIONAIS =====
+
+# Desabilitar assinatura do servidor
+ServerSignature Off
+
+# Desabilitar ETags (para cache em CDNs)
+FileETag None
+
+# ===== CORS (se necessário para APIs) =====
+
+# Header set Access-Control-Allow-Origin "*"
+# Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+# Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+# ===== COMPATIBILIDADE =====
+
+# Manter compatibilidade com navegadores antigos
+BrowserMatch "MSIE" force-no-vary
+BrowserMatch "Mozilla/4\.0[678]" force-no-vary

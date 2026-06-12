@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erro | Místico Encanto</title>
+  <meta name="description" content="Página de erro - Místico Encanto">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dourado:      #d4af37;
+      --dourado-claro:#f5e6c3;
+      --rosa:         #e6396f;
+      --vinho:        #2d0718;
+      --bg:           #0f0409;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--vinho) 100%);
+      color: var(--dourado-claro);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .error-container {
+      max-width: 560px;
+      width: 100%;
+      padding: 40px 36px;
+      background: rgba(45, 7, 24, 0.85);
+      border-radius: 24px;
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+    }
+
+    .error-icon {
+      font-size: 72px;
+      color: var(--dourado);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    /* Animação apenas se usuário permite movimento */
+    @media (prefers-reduced-motion: no-preference) {
+      .error-icon { animation: float 3s ease-in-out infinite; }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(-10px); }
+      }
+    }
+
+    .error-code {
+      font-size: 96px;
+      font-weight: 900;
+      color: var(--rosa);
+      line-height: 1;
+      margin-bottom: 8px;
+      text-shadow: 0 4px 20px rgba(230, 57, 111, 0.4);
+    }
+
+    .error-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--dourado);
+      margin-bottom: 16px;
+    }
+
+    .error-message {
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      color: rgba(245, 230, 195, 0.8);
+    }
+
+    /* Detalhes técnicos — ocultos por padrão, somente em dev */
+    .error-details {
+      background: rgba(90, 20, 44, 0.3);
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 28px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      font-size: 13px;
+      color: rgba(245, 230, 195, 0.6);
+      text-align: left;
+      line-height: 1.6;
+    }
+    .error-details p + p { margin-top: 4px; }
+    .error-details strong { color: var(--dourado); }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      padding: 11px 22px;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .btn:focus-visible {
+      outline: 2px solid var(--dourado);
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #e6396f 0%, #ff8ab5 100%);
+      color: white;
+      box-shadow: 0 4px 14px rgba(230, 57, 111, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(230, 57, 111, 0.45);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--dourado);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+    }
+    .btn-secondary:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--dourado);
+      transform: translateY(-3px);
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+      margin: 0 auto 20px;
+    }
+
+    .contact-info {
+      font-size: 13px;
+      color: rgba(245, 230, 195, 0.5);
+      line-height: 1.8;
+    }
+    .contact-info a {
+      color: var(--dourado);
+      text-decoration: none;
+    }
+    .contact-info a:hover { text-decoration: underline; }
+    .contact-info a:focus-visible {
+      outline: 2px solid var(--dourado);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 480px) {
+      .error-container { padding: 28px 20px; }
+      .error-code      { font-size: 72px; }
+      .error-title     { font-size: 22px; }
+      .action-buttons  { flex-direction: column; }
+      .btn             { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="error-container" role="main">
+    <span class="error-icon" aria-hidden="true">
+      <i class="fas fa-exclamation-triangle"></i>
+    </span>
+
+    <div class="error-code" id="errorCode" aria-live="polite">404</div>
+    <h1 class="error-title" id="errorTitle">Página Não Encontrada</h1>
+
+    <p class="error-message" id="errorMessage">
+      A página que você está procurando não existe ou foi movida.
+      Verifique o endereço ou volte para a página inicial.
+    </p>
+
+    <!-- Detalhes técnicos — só visíveis em localhost/dev -->
+    <div class="error-details" id="errorDetails" hidden>
+      <p><strong>Código:</strong> <span id="detCode"></span></p>
+      <p><strong>URL:</strong> <span id="detUrl"></span></p>
+      <p><strong>Data/Hora:</strong> <span id="detTime"></span></p>
+    </div>
+
+    <nav class="action-buttons" aria-label="Ações de recuperação">
+      <a href="/" class="btn btn-primary">
+        <i class="fas fa-home" aria-hidden="true"></i> Voltar ao Início
+      </a>
+      <button class="btn btn-secondary" id="btnVoltar">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Página Anterior
+      </button>
+      <button class="btn btn-secondary" id="detailsBtn" hidden>
+        <i class="fas fa-info-circle" aria-hidden="true"></i> Ver Detalhes
+      </button>
+    </nav>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="contact-info">
+      <p id="contactLine">Precisa de ajuda? <a id="waLink" href="#">Entre em contato pelo WhatsApp</a></p>
+      <p>© 2026 Místico Encanto — Todos os direitos reservados</p>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // Detecta código de erro da URL
+      const params  = new URLSearchParams(window.location.search);
+      const code    = params.get('code') || '404';
+      const msgParam = params.get('message') || '';
+
+      const LABELS = {
+        '400': 'Requisição Inválida',
+        '401': 'Não Autorizado',
+        '403': 'Acesso Proibido',
+        '404': 'Página Não Encontrada',
+        '429': 'Muitas Requisições',
+        '500': 'Erro Interno do Servidor',
+        '503': 'Serviço Indisponível'
+      };
+
+      const DESCRIPTIONS = {
+        '400': 'O servidor não conseguiu processar a requisição. Verifique os dados enviados.',
+        '401': 'Autenticação necessária para acessar este recurso.',
+        '403': 'Você não tem permissão para acessar este recurso.',
+        '404': 'A página que você está procurando não existe ou foi removida.',
+        '429': 'Você fez muitas requisições. Aguarde alguns instantes e tente novamente.',
+        '500': 'Ocorreu um erro interno no servidor. Tente novamente mais tarde.',
+        '503': 'O serviço está temporariamente indisponível. Estamos trabalhando para resolver.'
+      };
+
+      // Sanitiza strings antes de exibir (evita XSS via query params)
+      function escText(str) {
+        const d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+      }
+
+      // Preenche conteúdo da página
+      document.getElementById('errorCode').textContent  = code;
+      document.getElementById('errorTitle').textContent = LABELS[code] || 'Erro Desconhecido';
+      document.getElementById('errorMessage').textContent =
+        msgParam || DESCRIPTIONS[code] || 'Ocorreu um erro inesperado.';
+
+      // Botão voltar
+      document.getElementById('btnVoltar').addEventListener('click', () => {
+        if (window.history.length > 1) {
+          history.back();
+        } else {
+          window.location.href = '/';
+        }
+      });
+
+      // Detalhes técnicos — só em desenvolvimento
+      const isDev = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+      if (isDev) {
+        document.getElementById('detCode').textContent = code;
+        document.getElementById('detUrl').textContent  = window.location.href;
+        document.getElementById('detTime').textContent = new Date().toLocaleString('pt-BR');
+
+        const detailsBtn = document.getElementById('detailsBtn');
+        detailsBtn.removeAttribute('hidden');
+
+        detailsBtn.addEventListener('click', function () {
+          const details = document.getElementById('errorDetails');
+          const visible = !details.hidden;
+          details.hidden    = visible;
+          this.innerHTML = visible
+            ? '<i class="fas fa-info-circle" aria-hidden="true"></i> Ver Detalhes'
+            : '<i class="fas fa-times" aria-hidden="true"></i> Ocultar Detalhes';
+        });
+      }
+
+      // WhatsApp — não expõe número diretamente no HTML
+      // Tenta carregar do config.js se disponível (incluído via script separado se necessário)
+      // Fallback: remove o link de contato se número não configurado
+      const numero = (typeof window.SiteConfig !== 'undefined' && window.SiteConfig.CONTACT?.WHATSAPP)
+        ? window.SiteConfig.CONTACT.WHATSAPP
+        : null;
+
+      if (numero && numero !== 'SEU_NUMERO_AQUI') {
+        document.getElementById('waLink').href = `https://wa.me/${numero}`;
+      } else {
+        document.getElementById('contactLine').innerHTML =
+          'Precisa de ajuda? Entre em contato com o administrador da loja.';
+      }
+
+      // Log somente em dev
+      if (isDev) {
+        console.error(`[Místico Encanto] Erro ${code}: ${LABELS[code] || 'Desconhecido'}`);
+      }
+    })();
+  </script>
+</body>
+</html>

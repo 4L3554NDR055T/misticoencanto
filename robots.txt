@@ -1,0 +1,15 @@
+# Robots.txt para Místico Encanto
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /*.json
+
+# Sitemap
+Sitemap: https://misticoencanto.com/sitemap.xml
+
+# Crawl-delay para evitar sobrecarga
+Crawl-delay: 2
+
+# Host
+Host: https://misticoencanto.com

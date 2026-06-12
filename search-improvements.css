@@ -1,0 +1,148 @@
+/* ===================================================
+   BARRA DE PESQUISA — FONTE ÚNICA DE VERDADE
+   Tudo em UMA linha: [Logo] [🔍 busca...] [Filtros] [Carrinho]
+   Sem segunda linha em nenhum breakpoint.
+   =================================================== */
+
+/* ── BASE (todos os tamanhos) ───────────────────── */
+.header-busca-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* flex: 1 faz a barra preencher o espaço entre logo e botões */
+  flex: 1 1 0;
+  min-width: 0;
+  height: 38px;
+  margin: 0 6px;
+  /* sem order: fica no fluxo natural do HTML entre logo e .header-acoes */
+}
+
+.header-busca-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 196, 87, 0.65);
+  font-size: 14px;
+  pointer-events: none;
+  transition: color 0.2s, transform 0.2s;
+  z-index: 1;
+}
+
+.header-busca {
+  width: 100%;
+  height: 100%;
+  padding: 0 32px 0 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 196, 87, 0.28);
+  background: rgba(255, 180, 80, 0.07);
+  backdrop-filter: blur(8px);
+  color: var(--dourado-claro);
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.header-busca::placeholder {
+  color: rgba(245, 230, 195, 0.4);
+  font-style: italic;
+}
+
+.header-busca:focus {
+  border-color: #ffbf47;
+  background: rgba(255, 180, 80, 0.11);
+  box-shadow: 0 0 0 2px rgba(255, 191, 71, 0.2);
+}
+
+.header-busca-wrap:focus-within .header-busca-icon {
+  color: #ffbf47;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Botão limpar */
+.header-busca-clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.14);
+  color: rgba(245, 230, 195, 0.6);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, background 0.2s;
+  z-index: 1;
+}
+.header-busca-clear.visivel {
+  opacity: 1;
+  pointer-events: auto;
+}
+.header-busca-clear:hover {
+  background: rgba(230, 57, 111, 0.45);
+  color: #fff;
+}
+
+
+/* ── MOBILE L  769px – 1024px ───────────────────── */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .header-busca-wrap { height: 36px; margin: 0 5px; }
+  .header-busca      { font-size: 13px; }
+  .header-busca-icon { left: 12px; font-size: 13px; }
+}
+
+
+/* ── MOBILE M  481px – 768px ────────────────────── */
+@media (max-width: 768px) and (min-width: 481px) {
+  .header-busca-wrap { height: 34px; margin: 0 4px; }
+  .header-busca      { font-size: 12px; padding: 0 28px 0 34px; }
+  .header-busca-icon { left: 11px; font-size: 12px; }
+  .header-busca-clear{ right: 8px; width: 18px; height: 18px; font-size: 9px; }
+}
+
+
+/* ── MOBILE S  ≤ 480px ──────────────────────────── */
+@media (max-width: 480px) {
+  .header-busca-wrap { height: 32px; margin: 0 4px; }
+  .header-busca      { font-size: 12px; padding: 0 26px 0 32px; }
+  .header-busca-icon { left: 10px; font-size: 12px; }
+  .header-busca-clear{ right: 6px; width: 16px; height: 16px; font-size: 9px; }
+}
+
+/* ── Muito pequeno  ≤ 360px ─────────────────────── */
+@media (max-width: 360px) {
+  .header-busca-wrap { height: 30px; margin: 0 3px; }
+  .header-busca      { font-size: 11px; padding: 0 24px 0 28px; }
+  .header-busca-icon { left: 8px; font-size: 11px; }
+}
+
+
+/* ── Glow sutil no foco ─────────────────────────── */
+@keyframes searchGlow {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(255,191,71,0.18); }
+  50%       { box-shadow: 0 0 0 3px rgba(255,191,71,0.30); }
+}
+.header-busca:focus {
+  animation: searchGlow 2.5s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header-busca:focus {
+    animation: none;
+    box-shadow: 0 0 0 2px rgba(255,191,71,0.18);
+  }
+  .header-busca-wrap:focus-within .header-busca-icon {
+    transform: translateY(-50%);
+  }
+}
