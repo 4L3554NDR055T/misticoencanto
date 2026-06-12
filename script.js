@@ -340,6 +340,7 @@ function renderizar() {
   const grid     = document.getElementById('produtos');
   const semRes   = document.getElementById('sem-resultado');
   const contagem = document.getElementById('contagem-produtos');
+  const paginacao = document.getElementById('paginacao');
 
   // Guarda foco se veio de paginação
   grid.innerHTML = '';
@@ -350,10 +351,14 @@ function renderizar() {
 
   if (!lista.length) {
     semRes.removeAttribute('hidden');
-    document.getElementById('paginacao').innerHTML = '';
+    semRes.style.display = 'flex';
+    grid.style.display = 'none';
+    paginacao.innerHTML = '';
     return;
   }
   semRes.setAttribute('hidden', '');
+  semRes.style.display = 'none';
+  grid.style.display = 'grid';
 
   // Proteção contra pagina inválida
   const totalPag = Math.ceil(lista.length / POR_PAGINA);
