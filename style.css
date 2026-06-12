@@ -1659,6 +1659,15 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  z-index: 1;
+  position: relative;
+}
+
+/* Quando hidden, desaparece completamente */
+.sem-resultado[hidden] {
+  display: none !important;
+  visibility: hidden;
+  pointer-events: none;
 }
 .sem-resultado i { 
   font-size: 64px; /* Ícone maior */
